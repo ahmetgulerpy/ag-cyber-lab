@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import Quiz from "../../components/Quiz";
 import LabTask from "../../components/LabTask";
@@ -13,13 +14,35 @@ export default function Lesson01() {
       {/* Üst Bilgi */}
       <header className="border-b border-white/10 bg-[#0a0f16]">
         <div className="mx-auto max-w-5xl px-6 py-6">
-          <div className="mb-3 flex items-center gap-2 text-sm text-cyan-400">
-            <span>AG Cyber Lab</span>
-            <span className="text-white/30">/</span>
-            <span>Modül 01</span>
-            <span className="text-white/30">/</span>
-            <span>Ders 01</span>
-          </div>
+          <div className="mb-3 flex flex-wrap items-center gap-2 text-sm">
+  <Link
+    href="/"
+    className="text-cyan-400 hover:text-cyan-300"
+  >
+    🏠 Ana Sayfa
+  </Link>
+
+  <span className="text-white/30">/</span>
+
+  <Link
+    href="/#modules"
+    className="text-cyan-400 hover:text-cyan-300"
+  >
+    📚 Modüller
+  </Link>
+
+  <span className="text-white/30">/</span>
+
+  <span className="text-zinc-400">
+    Modül 01
+  </span>
+
+  <span className="text-white/30">/</span>
+
+  <span className="text-white">
+    Ders 01
+  </span>
+</div>
 
           <h1 className="text-3xl font-bold md:text-4xl">
             Bilgisayar Nedir?
