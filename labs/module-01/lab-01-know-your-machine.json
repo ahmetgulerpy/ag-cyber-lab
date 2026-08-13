@@ -1,0 +1,380 @@
+{
+  "id": "m01-lab-01",
+  "slug": "know-your-machine",
+  "moduleId": "module-01",
+  "lessonIds": ["lesson-01", "lesson-02"],
+  "title": "Know Your Machine",
+  "subtitle": "Kendi Bilgisayarını Tanı",
+  "description": "Kendi sistemindeki CPU, RAM, depolama ve çalışan uygulamaları inceleyerek ilk gerçek sistem gözlemini gerçekleştir.",
+  "difficulty": "guided",
+  "environment": "local",
+  "estimatedMinutes": 20,
+  "xp": 100,
+  "skills": [
+    "computer-fundamentals",
+    "system-observation",
+    "basic-analysis"
+  ],
+  "requirements": [
+    "Windows, Linux veya macOS çalıştıran kendi bilgisayarın",
+    "Sistem bilgilerini görüntüleme yetkisi",
+    "Herhangi bir ek yazılım gerekmez"
+  ],
+  "safety": {
+    "level": "safe",
+    "message": "Bu lab yalnızca sistem bilgilerini görüntüler. Dosya silme, ayar değiştirme veya yönetici yetkisi gerektiren bir işlem yoktur."
+  },
+  "objectives": [
+    "CPU modelini belirlemek",
+    "CPU çekirdek ve mantıksal işlemci kavramlarını gözlemlemek",
+    "Toplam RAM kapasitesini belirlemek",
+    "Depolama teknolojisini belirlemek",
+    "Çalışan bir uygulamanın RAM kullanımını gözlemlemek",
+    "Gözlem ile çıkarımı birbirinden ayırmaya başlamak"
+  ],
+  "tasks": [
+    {
+      "id": "task-01",
+      "type": "acknowledgement",
+      "title": "Sistemini Hazırla",
+      "instruction": "Windows kullanıyorsan Görev Yöneticisi'ni aç ve Performans sekmesine geç. Linux veya macOS kullanıyorsan sistem monitörü ya da sistem bilgi araçlarını kullanabilirsin.",
+      "question": "CPU, bellek ve depolama bilgilerini görebildiğin bir ekran açabildin mi?",
+      "options": [
+        {
+          "id": "yes",
+          "label": "Evet, hazırım"
+        },
+        {
+          "id": "no",
+          "label": "Henüz bulamadım"
+        }
+      ],
+      "correctAnswer": "yes",
+      "skills": ["system-observation"],
+      "points": 5,
+      "hints": [
+        {
+          "level": 1,
+          "title": "Nereden başlamalıyım?",
+          "text": "İşletim sisteminin donanım kullanımını gösteren yerleşik aracını düşün."
+        },
+        {
+          "level": 2,
+          "title": "Windows kullanıyorum",
+          "text": "CTRL + SHIFT + ESC tuşlarına basmayı dene."
+        },
+        {
+          "level": 3,
+          "title": "Tam konum",
+          "text": "Görev Yöneticisi açıldıktan sonra Performans bölümünü seç. CPU, Bellek ve Disk başlıklarını burada görebilirsin."
+        }
+      ]
+    },
+    {
+      "id": "task-02",
+      "type": "text",
+      "title": "CPU Modelini Bul",
+      "instruction": "Sistem bilgilerini kullanarak bilgisayarındaki CPU'nun modelini bul. Burada belirli bir doğru model beklemiyoruz; amaç kendi sisteminden veri toplamaktır.",
+      "question": "CPU modelin nedir?",
+      "placeholder": "Örn: AMD Ryzen ... / Intel Core ... / Apple M...",
+      "validation": {
+        "mode": "non-empty",
+        "minLength": 3
+      },
+      "skills": ["computer-fundamentals", "system-observation"],
+      "points": 10,
+      "hints": [
+        {
+          "level": 1,
+          "title": "Hangi bilgiyi arıyorum?",
+          "text": "CPU üreticisinin ve işlemci modelinin yazdığı alanı bul."
+        },
+        {
+          "level": 2,
+          "title": "Windows ipucu",
+          "text": "Görev Yöneticisi → Performans → CPU bölümünü incele."
+        },
+        {
+          "level": 3,
+          "title": "Alternatif yöntem",
+          "text": "Windows PowerShell üzerinde Get-CimInstance Win32_Processor | Select-Object Name komutu CPU adını gösterebilir."
+        }
+      ]
+    },
+    {
+      "id": "task-03",
+      "type": "number",
+      "title": "CPU Çekirdeklerini İncele",
+      "instruction": "CPU bilgileri içerisinden fiziksel çekirdek sayısını bul.",
+      "question": "CPU'n kaç çekirdeğe sahip?",
+      "placeholder": "Örn: 6",
+      "validation": {
+        "mode": "positive-number",
+        "min": 1
+      },
+      "skills": ["computer-fundamentals"],
+      "points": 10,
+      "hints": [
+        {
+          "level": 1,
+          "title": "Core nedir?",
+          "text": "Ders 02'de fiziksel işlem birimlerinden bahsetmiştik. Aradığın değer Core / Çekirdek sayısıdır."
+        },
+        {
+          "level": 2,
+          "title": "Windows konumu",
+          "text": "Görev Yöneticisi → Performans → CPU ekranının alt bölümünü incele."
+        },
+        {
+          "level": 3,
+          "title": "Tam alan",
+          "text": "CPU ekranında Çekirdekler / Cores şeklinde gösterilen değeri kullan."
+        }
+      ]
+    },
+    {
+      "id": "task-04",
+      "type": "number",
+      "title": "Mantıksal İşlemcileri Bul",
+      "instruction": "CPU ekranında mantıksal işlemci sayısını bul. Bu değer fiziksel çekirdek sayısıyla aynı olmak zorunda değildir.",
+      "question": "Sisteminde kaç mantıksal işlemci görünüyor?",
+      "placeholder": "Örn: 12",
+      "validation": {
+        "mode": "positive-number",
+        "min": 1
+      },
+      "skills": ["computer-fundamentals"],
+      "points": 10,
+      "hints": [
+        {
+          "level": 1,
+          "title": "Core ile aynı mı?",
+          "text": "Core ve logical processor aynı kavram değildir. CPU detaylarında ikisi ayrı alanlarda gösterilebilir."
+        },
+        {
+          "level": 2,
+          "title": "Nereye bakmalıyım?",
+          "text": "CPU performans ekranındaki ayrıntılı değerleri incele."
+        },
+        {
+          "level": 3,
+          "title": "Tam alan",
+          "text": "Windows'ta Mantıksal işlemciler / Logical processors alanındaki değeri kullan."
+        }
+      ]
+    },
+    {
+      "id": "task-05",
+      "type": "number",
+      "title": "RAM Kapasitesini Belirle",
+      "instruction": "Sisteminde bulunan toplam fiziksel RAM kapasitesini GB cinsinden belirle.",
+      "question": "Bilgisayarında yaklaşık kaç GB RAM bulunuyor?",
+      "placeholder": "Örn: 16",
+      "validation": {
+        "mode": "positive-number",
+        "min": 1
+      },
+      "skills": ["computer-fundamentals", "system-observation"],
+      "points": 10,
+      "hints": [
+        {
+          "level": 1,
+          "title": "RAM nerede?",
+          "text": "İşletim sisteminin bellek kullanımını gösteren bölümünü bul."
+        },
+        {
+          "level": 2,
+          "title": "Windows konumu",
+          "text": "Görev Yöneticisi → Performans → Bellek bölümüne geç."
+        },
+        {
+          "level": 3,
+          "title": "Aradığın değer",
+          "text": "Ekranda toplam kapasite olarak görünen GB değerini yaz. Küçük kullanılabilir kapasite farkları normal olabilir."
+        }
+      ]
+    },
+    {
+      "id": "task-06",
+      "type": "single-choice",
+      "title": "Depolama Teknolojini Tanı",
+      "instruction": "İşletim sistemindeki disk/depolama bilgilerini incele.",
+      "question": "Ana depolama aygıtının türü hangisi?",
+      "options": [
+        {
+          "id": "ssd",
+          "label": "SSD"
+        },
+        {
+          "id": "hdd",
+          "label": "HDD"
+        },
+        {
+          "id": "other",
+          "label": "Diğer / Emin değilim"
+        }
+      ],
+      "validation": {
+        "mode": "self-observation",
+        "acceptedAnswers": ["ssd", "hdd", "other"]
+      },
+      "skills": ["computer-fundamentals", "system-observation"],
+      "points": 10,
+      "hints": [
+        {
+          "level": 1,
+          "title": "Neyi arıyorum?",
+          "text": "SSD ve HDD'nin depolama teknolojileri olduğunu hatırla."
+        },
+        {
+          "level": 2,
+          "title": "Windows konumu",
+          "text": "Görev Yöneticisi → Performans bölümündeki Disk alanlarını incele."
+        },
+        {
+          "level": 3,
+          "title": "Bulamıyorsan",
+          "text": "Tür bilgisi arayüzde görünmüyorsa 'Diğer / Emin değilim' seçeneğini kullanabilirsin. Bilmediğin veriyi tahmin etme."
+        }
+      ]
+    },
+    {
+      "id": "task-07",
+      "type": "observation",
+      "title": "RAM Deneyi",
+      "instruction": "Önce tarayıcın kapalıyken yaklaşık RAM kullanımını gözlemle. Ardından tarayıcını aç, birkaç normal sekme aç ve RAM kullanımını tekrar gözlemle.",
+      "question": "Ne gözlemledin?",
+      "options": [
+        {
+          "id": "increased",
+          "label": "RAM kullanımı genel olarak arttı"
+        },
+        {
+          "id": "same",
+          "label": "Belirgin bir değişiklik görmedim"
+        },
+        {
+          "id": "decreased",
+          "label": "RAM kullanımı azaldı"
+        },
+        {
+          "id": "unclear",
+          "label": "Sonuç net değildi"
+        }
+      ],
+      "validation": {
+        "mode": "self-observation",
+        "acceptedAnswers": ["increased", "same", "decreased", "unclear"]
+      },
+      "skills": ["system-observation", "basic-analysis"],
+      "points": 15,
+      "hints": [
+        {
+          "level": 1,
+          "title": "Neyi karşılaştırmalıyım?",
+          "text": "Tarayıcı açılmadan önceki ve açıldıktan sonraki kullanılan bellek değerlerini karşılaştır."
+        },
+        {
+          "level": 2,
+          "title": "Ne beklemeliyim?",
+          "text": "Yeni bir uygulama çalıştırıldığında uygulamanın kod ve verileri için RAM kullanılması beklenebilir."
+        },
+        {
+          "level": 3,
+          "title": "Sonuç farklıysa",
+          "text": "Değer tam beklediğin gibi değişmediyse sorun değil. İşletim sistemi belleği dinamik yönetir. Gerçekte ne gördüysen onu seç."
+        }
+      ]
+    },
+    {
+      "id": "task-08",
+      "type": "single-choice",
+      "title": "Analist Gibi Düşün",
+      "instruction": "Bir gözlem ile bu gözlemden çıkarılan sonucu birbirinden ayır.",
+      "question": "Tarayıcıyı açtıktan sonra RAM kullanımı arttı. Aşağıdaki ifadelerden hangisi daha doğru analist yaklaşımıdır?",
+      "options": [
+        {
+          "id": "a",
+          "label": "Tarayıcı kesinlikle bilgisayarda bir sorun oluşturuyor."
+        },
+        {
+          "id": "b",
+          "label": "Tarayıcı açıldıktan sonra RAM kullanımında artış gözlemledim; bu, çalışan uygulamanın bellek kullanmasıyla uyumlu olabilir."
+        },
+        {
+          "id": "c",
+          "label": "RAM kullanımı arttığı için bilgisayarda malware var."
+        },
+        {
+          "id": "d",
+          "label": "RAM miktarı ne kadar yüksekse bilgisayar her zaman o kadar hızlıdır."
+        }
+      ],
+      "correctAnswer": "b",
+      "skills": ["basic-analysis"],
+      "points": 15,
+      "hints": [
+        {
+          "level": 1,
+          "title": "Gözlem mi sonuç mu?",
+          "text": "Hangi seçeneğin yalnızca gördüğümüz veriyi tarif ettiğini ve gereksiz kesinlik üretmediğini düşün."
+        },
+        {
+          "level": 2,
+          "title": "Kesin ifadeler",
+          "text": "'Kesinlikle sorun' veya 'malware var' demek için elimizde yeterli kanıt var mı?"
+        },
+        {
+          "level": 3,
+          "title": "Analist dili",
+          "text": "En güçlü cevap, RAM artışını gözlem olarak belirtip bunun çalışan uygulamayla uyumlu olabileceğini söyleyen seçenektir."
+        }
+      ]
+    },
+    {
+      "id": "task-09",
+      "type": "reflection",
+      "title": "Kendi Sisteminle Açıkla",
+      "instruction": "Bu labda yaptığın gözlemleri kullan. İnternetten tanım kopyalama.",
+      "question": "Bir uygulamayı açtığında CPU, RAM ve depolamanın rollerini kendi cümlelerinle açıkla.",
+      "placeholder": "Kendi açıklamanı buraya yaz...",
+      "validation": {
+        "mode": "reflection",
+        "minLength": 60,
+        "selfCheck": [
+          "Program dosyalarının depolama üzerinde bulunabileceğinden bahsettim.",
+          "Çalışma sırasında RAM kullanıldığını açıkladım.",
+          "CPU'nun programın makine komutlarını yürüttüğünü belirttim.",
+          "CPU, RAM ve depolamanın aynı işi yapmadığını açıkladım."
+        ]
+      },
+      "skills": [
+        "computer-fundamentals",
+        "basic-analysis"
+      ],
+      "points": 15,
+      "hints": [
+        {
+          "level": 1,
+          "title": "Üç bileşeni ayrı düşün",
+          "text": "Önce şu üç soruya cevap ver: Program kapalıyken nerede? Çalışırken aktif veriler nerede? Komutları kim yürütüyor?"
+        },
+        {
+          "level": 2,
+          "title": "İlişkiyi kur",
+          "text": "Depolama → RAM → CPU şeklindeki başlangıç modelini hatırla ancak bunların gerçek sistemde birlikte çalıştığını belirt."
+        },
+        {
+          "level": 3,
+          "title": "Cevap iskeleti",
+          "text": "Program dosyaları depolamada bulunur. Program çalıştırıldığında gerekli kod ve veriler bellekte kullanılabilir. CPU programın makine komutlarını yürütür. Bu üç bileşen farklı görevlerle birlikte çalışır."
+        }
+      ]
+    }
+  ],
+  "completion": {
+    "minimumScore": 70,
+    "allowRetry": true,
+    "showSkillBreakdown": true
+  }
+}
