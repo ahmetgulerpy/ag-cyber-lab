@@ -10,7 +10,15 @@ export interface ValidationResult {
   message?: string;
 }
 
-function hasValue(answer: LabAnswerValue): boolean {
+/*
+|--------------------------------------------------------------------------
+| Helpers
+|--------------------------------------------------------------------------
+*/
+
+function hasValue(
+  answer: LabAnswerValue,
+): boolean {
   if (answer === null) {
     return false;
   }
@@ -26,7 +34,9 @@ function hasValue(answer: LabAnswerValue): boolean {
   return false;
 }
 
-function normalizeAnswer(value: LabAnswerValue): string {
+function normalizeAnswer(
+  value: LabAnswerValue,
+): string {
   if (value === null) {
     return "";
   }
@@ -36,44 +46,67 @@ function normalizeAnswer(value: LabAnswerValue): string {
     .toLocaleLowerCase("tr-TR");
 }
 
+/*
+|--------------------------------------------------------------------------
+| Validator
+|--------------------------------------------------------------------------
+*/
+
 export function validateTask(
   task: LabTask,
   answer: LabAnswerValue,
 ): ValidationResult {
-  /* --------------------------------------------------
-   * 1. Önce cevap var mı?
-   * -------------------------------------------------- */
+  /*
+   * --------------------------------------------------
+   * 1. Cevap var mı?
+   * --------------------------------------------------
+   */
   if (!hasValue(answer)) {
     return {
       valid: false,
       correct: null,
       canContinue: false,
-      message: "Devam etmeden önce bir cevap gir.",
+      message:
+        "Devam etmeden önce bir cevap gir.",
     };
   }
 
-  /* --------------------------------------------------
-   * 2. Task doğrudan correctAnswer taşıyorsa
-   * -------------------------------------------------- */
+  /*
+   * --------------------------------------------------
+   * 2. Doğrudan correctAnswer
+   * --------------------------------------------------
+   *
+   * acknowledgement ve kesin cevabı olan
+   * task'larda kullanılabilir.
+   */
   if (task.correctAnswer !== undefined) {
-    const userAnswer = normalizeAnswer(answer);
-    const correctAnswer = normalizeAnswer(task.correctAnswer);
+    const userAnswer =
+      normalizeAnswer(answer);
 
-    const correct = userAnswer === correctAnswer;
+    const correctAnswer =
+      normalizeAnswer(
+        task.correctAnswer,
+      );
+
+    const correct =
+      userAnswer === correctAnswer;
 
     return {
       valid: true,
       correct,
       canContinue: correct,
+
       message: correct
         ? "Doğru. Devam edebilirsin."
         : "Bu cevap henüz doğru değil. Tekrar düşün veya bir ipucu kullan.",
     };
   }
 
-  /* --------------------------------------------------
-   * 3. Validation tanımlanmamışsa
-   * -------------------------------------------------- */
+  /*
+   * --------------------------------------------------
+   * 3. Validation yok
+   * --------------------------------------------------
+   */
   if (!task.validation) {
     return {
       valid: true,
@@ -82,68 +115,38 @@ export function validateTask(
     };
   }
 
-  const validation = task.validation;
+  const validation =
+    task.validation;
 
-  /* --------------------------------------------------
-   * 4. Validation mode'ları
-   * -------------------------------------------------- */
+  /*
+   * --------------------------------------------------
+   * 4. Validation Modes
+   * --------------------------------------------------
+   */
   switch (validation.mode) {
+    /*
+     * ------------------------------------------------
+     * NON-EMPTY
+     * ------------------------------------------------
+     */
     case "non-empty": {
-      const text = String(answer).trim();
-      const minimumLength = validation.minLength ?? 1;
+      const text =
+        String(answer).trim();
 
-      if (text.length < minimumLength) {
-        return {
-          valid: false,
-          correct: null,
-          canContinue: false,
-          message: `Cevabın en az ${minimumLength} karakter olmalı.`,
-        };
-      }
-
-      return {
-        valid: true,
-        correct: null,
-        canContinue: true,
-        message: "Gözlemin kaydedildi.",
-      };
-    }
-
-    case "positive-number": {
-      const numericValue =
-        typeof answer === "number"
-          ? answer
-          : Number(String(answer).replace(",", "."));
-
-      if (!Number.isFinite(numericValue)) {
-        return {
-          valid: false,
-          correct: null,
-          canContinue: false,
-          message: "Geçerli bir sayı gir.",
-        };
-      }
-
-      const minimum = validation.min ?? 0;
-
-      if (numericValue < minimum) {
-        return {
-          valid: false,
-          correct: null,
-          canContinue: false,
-          message: `Değer ${minimum} veya daha büyük olmalı.`,
-        };
-      }
+      const minimumLength =
+        validation.minLength ?? 1;
 
       if (
-        validation.max !== undefined &&
-        numericValue > validation.max
+        text.length <
+        minimumLength
       ) {
         return {
           valid: false,
           correct: null,
           canContinue: false,
-          message: `Değer ${validation.max} veya daha küçük olmalı.`,
+
+          message:
+            `Cevabın en az ${minimumLength} karakter olmalı.`,
         };
       }
 
@@ -151,33 +154,193 @@ export function validateTask(
         valid: true,
         correct: null,
         canContinue: true,
-        message: "Gözlemin kaydedildi.",
+        message:
+          "Gözlemin kaydedildi.",
       };
     }
 
+    /*
+     * ------------------------------------------------
+     * POSITIVE NUMBER
+     * ------------------------------------------------
+     */
+    case "positive-number": {
+      const numericValue =
+        typeof answer === "number"
+          ? answer
+          : Number(
+              String(answer)
+                .trim()
+                .replace(",", "."),
+            );
+
+      if (
+        !Number.isFinite(
+          numericValue,
+        )
+      ) {
+        return {
+          valid: false,
+          correct: null,
+          canContinue: false,
+          message:
+            "Geçerli bir sayı gir.",
+        };
+      }
+
+      const minimum =
+        validation.min ?? 0;
+
+      if (
+        numericValue < minimum
+      ) {
+        return {
+          valid: false,
+          correct: null,
+          canContinue: false,
+
+          message:
+            `Değer ${minimum} veya daha büyük olmalı.`,
+        };
+      }
+
+      if (
+        validation.max !==
+          undefined &&
+        numericValue >
+          validation.max
+      ) {
+        return {
+          valid: false,
+          correct: null,
+          canContinue: false,
+
+          message:
+            `Değer ${validation.max} veya daha küçük olmalı.`,
+        };
+      }
+
+      return {
+        valid: true,
+        correct: null,
+        canContinue: true,
+        message:
+          "Gözlemin kaydedildi.",
+      };
+    }
+
+    /*
+     * ------------------------------------------------
+     * EXACT
+     * ------------------------------------------------
+     */
     case "exact": {
-      const acceptedAnswers = validation.acceptedAnswers ?? [];
-      const normalizedUserAnswer = normalizeAnswer(answer);
-      const correct = acceptedAnswers.some(
-        (acceptedAnswer) =>
-          normalizeAnswer(acceptedAnswer) === normalizedUserAnswer,
-      );
+      const acceptedAnswers =
+        validation.acceptedAnswers ??
+        [];
+
+      const normalizedUserAnswer =
+        normalizeAnswer(answer);
+
+      const correct =
+        acceptedAnswers.some(
+          (acceptedAnswer) =>
+            normalizeAnswer(
+              acceptedAnswer,
+            ) ===
+            normalizedUserAnswer,
+        );
 
       return {
         valid: true,
         correct,
         canContinue: correct,
+
         message: correct
           ? "Doğru. Devam edebilirsin."
           : "Bu cevap henüz doğru değil. Tekrar düşün veya bir ipucu kullan.",
       };
     }
 
-    default:
+    /*
+     * ------------------------------------------------
+     * SELF OBSERVATION
+     * ------------------------------------------------
+     *
+     * Kullanıcının kendi bilgisayarında gördüğü
+     * değeri sistem önceden bilemez.
+     *
+     * Örnek:
+     * - CPU modeli
+     * - hostname
+     * - disk modeli
+     */
+    case "self-observation": {
+      const text =
+        String(answer).trim();
+
+      const minimumLength =
+        validation.minLength ?? 1;
+
+      if (
+        text.length <
+        minimumLength
+      ) {
+        return {
+          valid: false,
+          correct: null,
+          canContinue: false,
+
+          message:
+            `Gözlemin en az ${minimumLength} karakter olmalı.`,
+        };
+      }
+
       return {
         valid: true,
         correct: null,
         canContinue: true,
+        message:
+          "Gözlemin kaydedildi. Devam edebilirsin.",
       };
+    }
+
+    /*
+     * ------------------------------------------------
+     * REFLECTION
+     * ------------------------------------------------
+     *
+     * Kişisel yorum/değerlendirme olduğu için
+     * doğru veya yanlış olarak işaretlenmez.
+     */
+    case "reflection": {
+      const text =
+        String(answer).trim();
+
+      const minimumLength =
+        validation.minLength ?? 3;
+
+      if (
+        text.length <
+        minimumLength
+      ) {
+        return {
+          valid: false,
+          correct: null,
+          canContinue: false,
+
+          message:
+            `Yanıtın en az ${minimumLength} karakter olmalı.`,
+        };
+      }
+
+      return {
+        valid: true,
+        correct: null,
+        canContinue: true,
+        message:
+          "Değerlendirmen kaydedildi.",
+      };
+    }
   }
 }
