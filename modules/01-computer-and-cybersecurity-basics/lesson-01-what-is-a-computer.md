@@ -3,7 +3,8 @@
 > **AG Cyber Lab — Community Edition**
 >
 > **Seviye:** Başlangıç  
-> **Modül:** 01 — Bilgisayar ve Siber Güvenlik Temelleri
+> **Modül:** 01 — Bilgisayar ve Siber Güvenlik Temelleri  
+> **Ön Koşul:** Yok
 
 ---
 
@@ -11,36 +12,112 @@
 
 Bu dersin sonunda:
 
-- Bilgisayarın ne olduğunu açıklayabileceksin.
-- Donanım ve yazılım arasındaki farkı anlayabileceksin.
-- CPU, RAM ve disk arasındaki temel farkları açıklayabileceksin.
-- İşletim sisteminin temel görevlerini anlayabileceksin.
-- Bir programı çalıştırdığında bilgisayarında temel olarak neler olduğunu anlayabileceksin.
-- Bu bilgilerin siber güvenlikle neden ilişkili olduğunu kavrayabileceksin.
+- Bilgisayarın temel olarak nasıl çalıştığını açıklayabileceksin.
+- Girdi (input), işlem (processing), çıktı (output) ve depolama (storage) kavramlarını anlayabileceksin.
+- Donanım ve yazılım arasındaki farkı açıklayabileceksin.
+- CPU, RAM ve depolama arasındaki temel farkları anlayabileceksin.
+- İşletim sisteminin bilgisayardaki rolünü açıklayabileceksin.
+- Program ile çalışan işlem (process) arasındaki temel farkı fark edebileceksin.
+- Bir programı çalıştırdığında bilgisayarda temel olarak neler gerçekleştiğini açıklayabileceksin.
+- Bu bilgilerin siber güvenlik açısından neden önemli olduğunu anlayabileceksin.
+
+> Bu derste bazı kavramlarla ilk kez karşılaşacaksın. Hepsini ezberlemen beklenmiyor. Amacımız bilgisayarın nasıl çalıştığına ilişkin temel bir zihinsel model oluşturmak.
 
 ---
 
 # 1. Bilgisayar Nedir?
 
-En basit haliyle bilgisayar;
+Bilgisayar;
 
-**verileri alan, işleyen, saklayan ve gerektiğinde sonuç üreten elektronik bir sistemdir.**
+**kendisine verilen komutları çalıştırarak veriler üzerinde işlem yapabilen, verileri saklayabilen ve sonuç üretebilen programlanabilir bir sistemdir.**
 
-Örneğin bilgisayarında bir hesap makinesi uygulamasını açtığında:
+Bilgisayarları yalnızca masaüstü veya dizüstü cihazlardan ibaret düşünmemeliyiz.
 
-1. Sen bir işlem girersin.
-2. Bilgisayar bu veriyi alır.
-3. İşlemci gerekli işlemleri gerçekleştirir.
-4. Gerekli veriler bellekte işlenir.
-5. Sonuç ekranda gösterilir.
+Örneğin:
 
-Aslında bilgisayar üzerinde yaptığımız işlemlerin büyük bölümü bu temel mantığın çok daha gelişmiş hâlidir.
+- Masaüstü bilgisayarlar
+- Dizüstü bilgisayarlar
+- Sunucular
+- Akıllı telefonlar
+- Raspberry Pi gibi tek kart bilgisayarlar
+- Ağ cihazları
+- Gömülü sistemler
+
+farklı amaçlarla kullanılan bilgisayar sistemlerine örnek olabilir.
+
+Siber güvenlik dünyasında ilerledikçe yalnızca kişisel bilgisayarlarla değil; sunucular, ağ cihazları, mobil cihazlar, bulut sistemleri ve farklı gömülü sistemlerle de karşılaşacağız.
 
 ---
 
-# 2. Donanım Nedir?
+# 2. Bir Bilgisayar Temel Olarak Ne Yapar?
 
-Donanım, bilgisayarın **fiziksel olarak dokunabildiğimiz parçalarıdır.**
+Bilgisayarların çalışma mantığını başlangıç seviyesinde dört temel kavramla düşünebiliriz:
+
+```text
+          INPUT
+            │
+            ▼
+       PROCESSING
+            │
+            ▼
+          OUTPUT
+            │
+            │
+            ▼
+         Kullanıcı
+
+       PROCESSING
+            │
+            ↕
+         STORAGE
+```
+
+Bunların Türkçeleri:
+
+```text
+Input       → Girdi
+Processing  → İşleme
+Output      → Çıktı
+Storage     → Depolama
+```
+
+Bir hesap makinesi uygulamasında `5 + 3` işlemi yaptığını düşün.
+
+### Girdi — Input
+
+Klavyeden veya ekrandaki düğmelerden:
+
+```text
+5 + 3
+```
+
+bilgisini girersin.
+
+### İşleme — Processing
+
+Programın komutları çalıştırılır ve gerekli hesaplama gerçekleştirilir.
+
+### Çıktı — Output
+
+Sonuç:
+
+```text
+8
+```
+
+olarak ekranda gösterilir.
+
+### Depolama — Storage
+
+Eğer sonuç bir dosyaya kaydedilirse bu bilgi depolama biriminde saklanabilir.
+
+Gerçek bilgisayar sistemleri bundan çok daha karmaşıktır ancak bu model temel çalışma mantığını anlamamıza yardımcı olur.
+
+---
+
+# 3. Donanım Nedir?
+
+Donanım (**hardware**), bilgisayar sisteminin fiziksel bileşenlerini ifade eder.
 
 Örneğin:
 
@@ -50,203 +127,113 @@ Donanım, bilgisayarın **fiziksel olarak dokunabildiğimiz parçalarıdır.**
 - HDD
 - Anakart
 - Ekran kartı
+- Ağ kartı
 - Klavye
 - Mouse
 - Monitör
 
-bunların tamamı donanımdır.
+birer donanım bileşenidir.
 
 Kısaca:
 
-> **Donanım = Bilgisayarın fiziksel parçaları**
+> **Donanım = Bilgisayar sisteminin fiziksel bileşenleri**
+
+Her donanım aynı görevi gerçekleştirmez.
+
+Örneğin CPU komutların işlenmesinde görev alırken RAM çalışan programların ihtiyaç duyduğu veriler için hızlı ve geçici bir çalışma alanı sağlar.
 
 ---
 
-# 3. Yazılım Nedir?
+# 4. Yazılım Nedir?
 
-Yazılım, bilgisayara belirli işlemleri yaptıran program ve kodlardan oluşur.
+Yazılım (**software**), bilgisayarın belirli görevleri gerçekleştirmesini sağlayan programlar, ilgili veriler ve talimatlar bütünüdür.
 
 Örneğin:
 
 - Windows
-- Linux
+- Ubuntu
+- macOS
 - Google Chrome
 - Visual Studio Code
-- Python
+- VLC Media Player
 - Oyunlar
 - Antivirüs yazılımları
 
 birer yazılım örneğidir.
 
-Kısaca:
+Yazılımları ilerleyen derslerde daha ayrıntılı sınıflandıracağız.
 
-> **Yazılım = Bilgisayara ne yapacağını söyleyen programlar**
-
----
-
-# 4. Donanım ve Yazılım Birlikte Çalışır
-
-Donanım ve yazılım birbirinden bağımsız düşünülemez.
-
-Örneğin Google Chrome'u açtığını düşün.
-
-Chrome bir yazılımdır.
-
-Fakat Chrome'un çalışabilmesi için:
-
-- CPU'ya,
-- RAM'e,
-- depolama alanına,
-- işletim sistemine
-
-ihtiyacı vardır.
-
-Basitleştirirsek:
+Şimdilik iki büyük grubu bilmek yeterlidir:
 
 ```text
-          YAZILIM
-             │
-             ▼
-      İŞLETİM SİSTEMİ
-             │
-             ▼
-          DONANIM
-       ┌─────┼─────┐
-       ▼     ▼     ▼
-      CPU   RAM   DİSK
+YAZILIM
+│
+├── Sistem Yazılımları
+│   └── İşletim sistemleri gibi
+│
+└── Uygulama Yazılımları
+    └── Tarayıcılar, editörler, oyunlar gibi
 ```
-
-Burada her parçanın farklı bir görevi vardır.
-
----
-
-# 5. Bir Programı Açtığımızda Ne Olur?
-
-Şimdi biraz daha önemli bir noktaya gelelim.
-
-Bilgisayarında Google Chrome'u açtığını düşün.
-
-Sen sadece Chrome simgesine tıklıyorsun.
-
-Fakat bilgisayarın arka planında birçok işlem gerçekleşiyor.
-
-Bunu adım adım inceleyelim.
-
----
-
-## 5.1 Program Diskte Bulunur
-
-Chrome'un çalışması için gerekli dosyalar bilgisayarındaki depolama biriminde bulunur.
 
 Örneğin:
 
 ```text
-SSD / HDD
-    │
-    └── Chrome dosyaları
+Windows       → İşletim sistemi
+Ubuntu        → İşletim sistemi
+Google Chrome → Uygulama
+VS Code       → Uygulama
 ```
 
-Bu dosyalar bilgisayar kapatılsa bile depolama biriminde kalır.
+Kısaca:
 
-Burada önemli nokta şudur:
-
-> **Programın dosyaları depolama biriminde saklanabilir.**
+> **Donanım fiziksel bileşenleri, yazılım ise bu sistem üzerinde çalışan programları ve ilgili bileşenleri ifade eder.**
 
 ---
 
-## 5.2 İşletim Sistemi Programı Çalıştırır
+# 5. Donanım ve Yazılım Birlikte Çalışır
 
-Chrome'a tıkladığında işletim sistemi bunun bir program olduğunu anlar ve çalıştırılması için gerekli işlemleri başlatır.
+Bir uygulama tek başına çalışmaz.
 
-Windows gibi işletim sistemleri burada önemli bir görev üstlenir.
+Google Chrome'u açtığını düşün.
 
-İşletim sistemi;
+Chrome bir yazılımdır fakat çalışabilmesi için bilgisayarın sahip olduğu kaynaklardan yararlanır.
 
-- Programların çalışmasını sağlar.
-- Sistem kaynaklarının yönetilmesine yardımcı olur.
-- Bellek kullanımını yönetir.
-- Donanım ve yazılım arasındaki iletişimi sağlar.
+Örneğin:
 
-Yani işletim sistemi, kullanıcı ile donanım arasında önemli bir katman görevi görür.
+- CPU
+- RAM
+- Depolama
+- Ağ donanımı
+- İşletim sistemi
 
----
+bu süreçte farklı görevler üstlenebilir.
 
-## 5.3 Program RAM'e Yüklenir
-
-Programın çalışabilmesi için ihtiyaç duyduğu bazı veriler RAM'e yüklenir.
-
-Basitleştirirsek:
+Başlangıç seviyesinde sistemi şöyle düşünebiliriz:
 
 ```text
-SSD / HDD
-    │
-    │ Program dosyaları
-    ▼
-   RAM
-    │
-    │ Çalışan program
-    ▼
-   CPU
+               KULLANICI
+                   │
+                   ▼
+             UYGULAMALAR
+             Google Chrome
+                   │
+                   ▼
+           İŞLETİM SİSTEMİ
+                   │
+        ┌──────────┼──────────┐
+        ▼          ▼          ▼
+       CPU        RAM      DEPOLAMA
+                              │
+                         ┌────┴────┐
+                         ▼         ▼
+                        SSD       HDD
 ```
 
-Burada çok önemli bir ayrım vardır:
+Bu model oldukça basitleştirilmiştir.
 
-> **Disk programları ve verileri kalıcı olarak saklamak için kullanılır.**
+Gerçek sistemlerde sürücüler, firmware, CPU cache'leri, sanal bellek ve birçok başka katman bulunur.
 
-> **RAM ise programlar çalışırken ihtiyaç duyulan verilerin geçici olarak tutulduğu çalışma alanıdır.**
-
----
-
-## 5.4 CPU Komutları İşler
-
-Program çalışırken bilgisayarın işlemcisi yani **CPU**, çeşitli komutları işler.
-
-Örneğin Chrome;
-
-- Kullanıcı işlemlerini,
-- Hesaplamaları,
-- Sayfa verilerini,
-- Programın kendi işlemlerini
-
-yürütmek için CPU kaynaklarını kullanabilir.
-
-CPU'nun temel görevini şimdilik şöyle düşünebilirsin:
-
-> **CPU = Komutları işleyen temel işlem birimi**
-
-CPU'yu daha ayrıntılı olarak ilerleyen dersimizde inceleyeceğiz.
-
----
-
-## 5.5 Program Çalışır
-
-Tüm bu işlemlerin sonucunda Chrome çalışır ve biz internet sitelerini kullanmaya başlayabiliriz.
-
-Senin gördüğün şey:
-
-> "Chrome açıldı."
-
-olabilir.
-
-Fakat arka planda kabaca şu süreç gerçekleşir:
-
-```text
-Chrome'a tıkladın
-       ↓
-İşletim sistemi programı tanıdı
-       ↓
-Programın dosyaları bulundu
-       ↓
-Gerekli veriler RAM'e yüklendi
-       ↓
-CPU komutları işlemeye başladı
-       ↓
-Program çalıştı
-```
-
-Bu sürecin çok daha karmaşık olduğunu unutma.
-
-Burada amacımız teknik ayrıntılara boğulmadan temel mantığı anlamaktır.
+Bunları ilerleyen derslerde gerektiği zaman inceleyeceğiz.
 
 ---
 
@@ -260,28 +247,37 @@ Türkçesi:
 
 **Merkezi İşlem Birimi**
 
-olarak ifade edilir.
+CPU, bilgisayarın programlardaki makine komutlarını yürüten temel bileşenlerinden biridir.
 
-CPU, bilgisayarın komutları işleyen temel bileşenlerinden biridir.
+Başlangıç seviyesinde:
 
-Basitçe:
+> **CPU = Komutları yürüten ve hesaplama işlemlerini gerçekleştiren temel işlem birimi**
 
-> **CPU, bilgisayarın kendisine verilen komutları işleyen temel bileşenidir.**
+olarak düşünebilirsin.
 
-Örneğin bir program çalışırken CPU çeşitli işlemleri gerçekleştirir.
+Örneğin bir program çalışırken CPU:
 
-Ancak CPU tek başına çalışmaz.
+- Aritmetik işlemler gerçekleştirebilir.
+- Mantıksal karşılaştırmalar yapabilir.
+- Bellekteki veriler üzerinde işlem yapılmasını sağlayabilir.
+- Programın komutlarını sırayla veya işlemcinin mimarisine uygun şekilde yürütebilir.
+
+Ancak CPU bilgisayarı tek başına çalıştırmaz.
 
 CPU;
 
-- RAM,
-- Disk,
-- İşletim sistemi,
-- Diğer donanımlar
+```text
+CPU
+ │
+ ├── RAM
+ ├── Depolama
+ ├── İşletim sistemi
+ └── Diğer donanımlar
+```
 
-ile birlikte çalışır.
+ile birlikte çalışan daha büyük bir sistemin parçasıdır.
 
-Bu nedenle bilgisayarın çalışmasını yalnızca CPU'ya bağlamak doğru değildir.
+CPU'nun nasıl çalıştığını Ders 02'de daha ayrıntılı inceleyeceğiz.
 
 ---
 
@@ -291,11 +287,9 @@ RAM'in açılımı:
 
 **Random Access Memory**
 
-olarak ifade edilir.
+RAM, bilgisayarın ana çalışma belleğidir.
 
-RAM, bilgisayarın **geçici çalışma belleğidir.**
-
-Bilgisayarında bir program çalıştırdığında programın ihtiyaç duyduğu verilerin bir bölümü RAM üzerinde tutulabilir.
+Programlar çalışırken ihtiyaç duyulan kod ve verilerin önemli bir bölümü bellekte bulunur.
 
 Örneğin aynı anda:
 
@@ -304,273 +298,440 @@ Bilgisayarında bir program çalıştırdığında programın ihtiyaç duyduğu 
 - Discord
 - Spotify
 
-kullanıyorsan bu programların çalışması için RAM kaynakları kullanılacaktır.
+çalıştırıyorsan bu uygulamalar ve işletim sistemi RAM kaynaklarını kullanır.
 
-Basitleştirirsek:
+Başlangıç seviyesinde:
 
-```text
-Programlar
-    │
-    ▼
-   RAM
-    │
-    ▼
-Çalışan uygulamalar
-```
-
-RAM'in önemli özelliklerinden biri geçici olmasıdır.
-
-Bilgisayar kapatıldığında RAM üzerindeki veriler kalıcı olarak saklanmaz.
-
-Bu nedenle:
-
-> **RAM = Geçici çalışma alanı**
+> **RAM = Çalışan sistem ve programlar için hızlı, geçici çalışma alanı**
 
 olarak düşünebilirsin.
 
----
+RAM, **uçucu (volatile)** bir bellek türüdür.
 
-# 8. Disk Nedir?
+Normal çalışma koşullarında güç kesildiğinde RAM'deki veriler kalıcı depolamadaki dosyalar gibi korunmaz.
 
-Bilgisayarlarda verilerin uzun süreli olarak saklanması için depolama birimleri kullanılır.
-
-Bunların en yaygın örnekleri:
-
-- SSD
-- HDD
-
-olarak karşımıza çıkar.
-
-Örneğin bilgisayarındaki:
-
-- Fotoğraflar
-- Videolar
-- Belgeler
-- Oyunlar
-- Programlar
-- İşletim sistemi
-
-gibi veriler depolama birimlerinde tutulabilir.
-
-RAM ile disk arasındaki temel farkı şöyle düşünebilirsin:
+Bu nedenle RAM ile depolamayı birbirinden ayırmak önemlidir.
 
 ```text
 RAM
 │
-├── Geçici çalışma alanı
-└── Çalışan programların ihtiyaç duyduğu veriler
-
-
-SSD / HDD
-│
-├── Kalıcı depolama alanı
-└── Dosyalar ve programlar burada saklanabilir
+├── Geçici çalışma alanıdır
+├── Çalışan programlar tarafından kullanılır
+└── Güç kesildiğinde içeriği kalıcı depolama gibi korunmaz
 ```
+
+> İleride dijital adli bilişim (DFIR) ve malware analysis konularında RAM'in neden çok değerli bir kanıt kaynağı olabileceğini göreceğiz.
+
+---
+
+# 8. Depolama Nedir?
+
+Bilgisayardaki verilerin uzun süreli olarak saklanması için depolama birimleri kullanılır.
+
+Yaygın örnekler:
+
+- SSD — Solid State Drive
+- HDD — Hard Disk Drive
+
+Bilgisayarındaki:
+
+- Belgeler
+- Fotoğraflar
+- Videolar
+- Program dosyaları
+- Oyunlar
+- İşletim sistemi dosyaları
+- Log dosyaları
+
+depolama üzerinde bulunabilir.
+
+RAM ve depolama aynı şey değildir.
+
+```text
+RAM
+│
+├── Ana çalışma belleğidir
+├── Geçicidir
+└── Çalışan sistem/programlar tarafından aktif olarak kullanılır
+
+
+DEPOLAMA
+│
+├── SSD / HDD gibi aygıtları kapsar
+├── Verileri uzun süre saklayabilir
+└── Programlar ve dosyalar burada bulunabilir
+```
+
+Örneğin Chrome bilgisayarda kurulu fakat kapalıysa programın dosyaları depolama üzerinde bulunmaya devam eder.
+
+Chrome'u çalıştırdığında ise programın çalışması için gereken kod ve verilerin ilgili bölümleri belleğe yüklenebilir veya eşlenebilir.
+
+Bu ayrım ileride çok önemli olacak:
+
+> **Bir programın dosyasının bilgisayarda bulunması ile programın o anda çalışıyor olması aynı şey değildir.**
 
 ---
 
 # 9. İşletim Sistemi Nedir?
 
-Şimdi bilgisayarın en önemli yazılım katmanlarından birine gelelim:
+İşletim sistemi (**Operating System — OS**), bilgisayarın donanım kaynaklarını yöneten ve uygulamalara sistem hizmetleri sağlayan temel yazılımdır.
 
-**İşletim sistemi.**
+Yaygın işletim sistemi örnekleri:
 
-İşletim sistemi, bilgisayarın donanım ve yazılım kaynaklarını yönetmeye yardımcı olan temel yazılımdır.
+- Windows
+- Linux tabanlı işletim sistemleri
+- macOS
+
+İşletim sistemi birçok önemli görev üstlenir.
 
 Örneğin:
 
-- Windows
-- Linux
-- macOS
+```text
+İŞLETİM SİSTEMİ
+│
+├── Process yönetimi
+├── Bellek yönetimi
+├── Dosya sistemi yönetimi
+├── Kullanıcı ve yetki yönetimi
+├── Donanım erişimi
+├── Giriş / çıkış işlemleri
+└── Ağ işlevleri
+```
 
-birer işletim sistemidir.
+Bu kavramların tamamını şu anda öğrenmen gerekmiyor.
 
-Sen bir program açtığında program doğrudan bütün donanımı kendi başına yönetmez.
+İlerleyen derslerde her birini ayrı ayrı inceleyeceğiz.
 
-İşletim sistemi burada önemli görevler üstlenir.
+Şimdilik şunu bilmek yeterli:
+
+> **İşletim sistemi, uygulamalar ile bilgisayarın kaynakları arasında kritik bir yönetim katmanı oluşturur.**
+
+---
+
+# 10. Bir Programı Açtığımızda Ne Olur?
+
+Şimdi öğrendiğimiz kavramları tek bir örnekte birleştirelim.
+
+Google Chrome simgesine tıkladığını düşün.
+
+Senin gördüğün:
+
+```text
+Chrome açıldı.
+```
+
+olabilir.
+
+Fakat bilgisayarın arka planında çok sayıda işlem gerçekleşir.
+
+Modern bir işletim sistemindeki süreci oldukça basitleştirerek inceleyelim.
+
+---
+
+## 10.1 Program Dosyaları Depolamada Bulunur
+
+Chrome'un çalışması için gerekli program dosyaları bilgisayarın depolama alanında bulunur.
+
+Örneğin:
+
+```text
+DEPOLAMA
+│
+└── Chrome Program Dosyaları
+```
+
+Bilgisayarı kapatsan bile bu dosyalar depolama üzerinde kalabilir.
+
+---
+
+## 10.2 Kullanıcı Programı Başlatır
+
+Chrome simgesine tıkladığında işletim sistemi programın başlatılması için gerekli işlemleri gerçekleştirir.
+
+```text
+Kullanıcı
+    │
+    ▼
+Chrome simgesine tıklar
+    │
+    ▼
+İşletim sistemi
+```
+
+---
+
+## 10.3 Bir Process Oluşturulur
+
+Burada ilk kez önemli bir kavramla karşılaşıyoruz:
+
+**Process (İşlem)**
+
+Bir program çalıştırıldığında işletim sistemi tarafından çalışan bir işlem olarak yönetilir.
+
+Başlangıç seviyesinde şu ayrımı yapabiliriz:
+
+```text
+PROGRAM
+│
+└── Depolamada bulunan çalıştırılabilir yazılım
+
+
+PROCESS
+│
+└── Çalışmakta olan bir program örneği
+```
+
+Bu tanım şimdilik yeterlidir.
+
+Process kavramını ilerleyen derslerde çok daha ayrıntılı inceleyeceğiz.
+
+> Siber güvenlikte process'ler son derece önemlidir. Zararlı yazılımları araştırırken çalışan process'ler sıkça incelenir.
+
+---
+
+## 10.4 Gerekli Kod ve Veriler Belleğe Alınır
+
+Programın çalışması için gereken kod ve verilerin ilgili bölümleri işletim sistemi tarafından belleğe yüklenebilir veya eşlenebilir.
+
+Basitleştirilmiş model:
+
+```text
+DEPOLAMA
+    │
+    │ Program dosyaları
+    ▼
+   RAM
+    │
+    │ Çalışma sırasında kullanılan
+    │ kod ve veriler
+    ▼
+   CPU
+```
+
+Bu şema gerçek sistemi tamamen temsil etmez.
+
+Modern işletim sistemlerinde sanal bellek, sayfalama, cache mekanizmaları ve başka birçok yapı bulunur.
+
+Şimdilik temel ilişkiyi anlamamız yeterlidir.
+
+---
+
+## 10.5 CPU Komutları Yürütür
+
+Programın makine komutları CPU tarafından yürütülür.
+
+Chrome çalışırken CPU;
+
+- Kullanıcı işlemlerini,
+- Program mantığını,
+- Hesaplamaları,
+- Veriler üzerinde gerçekleştirilen işlemleri
+
+yürütmek için kullanılabilir.
+
+Program ayrıca dosya açmak veya ağ üzerinden veri göndermek gibi işlemler için işletim sisteminin sunduğu hizmetlerden yararlanabilir.
+
+---
+
+## 10.6 Program Çalışmaya Devam Eder
+
+Sonuç olarak Chrome'un penceresi açılır ve program kullanıcıyla etkileşime girmeye başlar.
+
+Tüm süreci başlangıç seviyesinde şöyle özetleyebiliriz:
+
+```text
+Kullanıcı Chrome'u başlatır
+          │
+          ▼
+İşletim sistemi isteği işler
+          │
+          ▼
+Program dosyaları bulunur
+          │
+          ▼
+Bir process oluşturulur
+          │
+          ▼
+Gerekli kod/veriler belleğe alınır
+          │
+          ▼
+CPU programın komutlarını yürütür
+          │
+          ▼
+Program işletim sistemi hizmetlerini kullanır
+          │
+          ▼
+Chrome çalışır
+```
+
+Gerçekte bu sürecin çok daha fazla teknik ayrıntısı vardır.
+
+İlerleyen derslerde bu şemaya yeni katmanlar ekleyeceğiz.
+
+---
+
+# 11. Program ile Process Aynı Şey Mi?
+
+Hayır.
+
+Bu ayrım özellikle siber güvenlik açısından önemlidir.
+
+Bir örnek düşün.
+
+Bilgisayarında şu dosya bulunuyor:
+
+```text
+example.exe
+```
+
+Dosyanın depolama üzerinde bulunması:
+
+> Program bilgisayarda mevcut.
+
+anlamına gelebilir.
+
+Ancak bu:
+
+> Program şu anda çalışıyor.
+
+anlamına gelmez.
+
+Program çalıştırıldığında işletim sistemi tarafından bir process oluşturulabilir.
 
 Basitleştirirsek:
 
 ```text
-          UYGULAMALAR
-               │
-               ▼
-       İŞLETİM SİSTEMİ
-               │
-               ▼
-            DONANIM
-        ┌──────┼──────┐
-        ▼      ▼      ▼
-       CPU    RAM    DİSK
+Depolamadaki program
+        │
+        │ çalıştırılır
+        ▼
+     Process
+        │
+        ▼
+Çalışan program örneği
 ```
 
-Bu yapı siber güvenlik açısından oldukça önemlidir.
+Hatta aynı programın birden fazla process oluşturması veya bir uygulamanın birden fazla process kullanması mümkündür.
 
-Çünkü ileride;
+Google Chrome bunun iyi örneklerinden biridir.
 
-- Process
-- Service
-- Kullanıcı
-- Yetki
-- Log
-- Malware
-- DFIR
+Görev Yöneticisi'ni açtığında Chrome için birden fazla process görebilirsin.
 
-gibi konuları incelerken işletim sistemi sürekli karşımıza çıkacak.
+Bunun nedenini ilerleyen derslerde inceleyeceğiz.
 
 ---
 
-# 10. Donanım ve Yazılım Nasıl Birlikte Çalışır?
+# 12. Bunun Siber Güvenlikle Ne İlgisi Var?
 
-Artık parçaları ayrı ayrı gördük.
+Siber güvenlikte korumaya veya incelemeye çalıştığımız şeylerin büyük bölümü bilgisayar sistemlerinin farklı katmanlarında bulunur.
 
-Şimdi hepsini bir araya getirelim.
+Bir güvenlik analisti yalnızca:
 
-Örneğin Google Chrome'u açtığımızda:
+> "Virüs var mı?"
 
-```text
-           KULLANICI
-                │
-                ▼
-        Google Chrome
-                │
-                ▼
-       İşletim Sistemi
-                │
-        ┌───────┼───────┐
-        ▼       ▼       ▼
-       CPU     RAM     Disk
-```
+sorusunu sormaz.
 
-Her parçanın farklı bir görevi vardır.
+Bunun yerine sistemde ne gerçekleştiğini anlamaya çalışır.
 
-### CPU
+Örneğin şüpheli bir dosyanın çalıştırıldığını düşün.
 
-Komutları işler.
-
-### RAM
-
-Çalışan programların ihtiyaç duyduğu verileri geçici olarak tutar.
-
-### Disk
-
-Dosyaları ve programları kalıcı olarak saklar.
-
-### İşletim Sistemi
-
-Donanım ve yazılım kaynaklarının yönetilmesini sağlar.
-
----
-
-# 11. Peki Bunun Siber Güvenlikle Ne İlgisi Var?
-
-Şimdi bu dersin en önemli kısmına geldik.
-
-Bir siber güvenlik uzmanı neden bilgisayarın nasıl çalıştığını bilmek zorunda?
-
-Çünkü güvenlik olayları bilgisayar sistemlerinin üzerinde gerçekleşir.
-
-Örneğin bir saldırgan sisteme zararlı bir dosya gönderdi.
-
-Dosya çalıştırıldığında sistem üzerinde çeşitli aktiviteler meydana gelebilir.
-
-Basitleştirilmiş olarak:
+Olası bir senaryo şöyle olabilir:
 
 ```text
 Şüpheli dosya
-      ↓
+      │
+      ▼
 Dosya çalıştırıldı
-      ↓
-Process oluştu
-      ↓
-RAM kullanıldı
-      ↓
-CPU komutları işledi
-      ↓
-Dosya / sistem değişiklikleri
-      ↓
-Network bağlantısı
+      │
+      ▼
+Bir process oluşabilir
+      │
+      ▼
+Kod CPU tarafından yürütülür
+      │
+      ▼
+Bellek kullanılır
+      │
+      ▼
+Program davranışına bağlı olarak
+      │
+      ├──► Dosyalara erişebilir
+      │
+      ├──► Yeni dosyalar oluşturabilir
+      │
+      ├──► Başka process'ler başlatabilir
+      │
+      ├──► Sistem ayarlarını değiştirebilir
+      │
+      └──► Ağ bağlantıları kurabilir
 ```
 
-Bir güvenlik analisti bu olayları incelerken;
+Bunların tamamının gerçekleşmesi gerekmez.
 
-- Hangi dosya çalıştı?
+Bir güvenlik analistinin görevi hangi aktivitelerin gerçekten gerçekleştiğini eldeki kanıtlardan anlamaya çalışmaktır.
+
+Örneğin şu sorular sorulabilir:
+
+- Hangi dosya çalıştırıldı?
+- Dosyayı hangi kullanıcı çalıştırdı?
 - Hangi process oluştu?
-- Hangi kullanıcı çalıştırdı?
+- Başka process'ler başlatıldı mı?
 - Hangi dosyalara erişildi?
-- Hangi network bağlantıları kuruldu?
-- Sistem üzerinde ne değişti?
+- Yeni dosyalar oluşturuldu mu?
+- Sistem üzerinde değişiklik yapıldı mı?
+- Hangi ağ bağlantıları kuruldu?
+- Bellekte şüpheli bir içerik bulunuyor mu?
+- Sistem loglarında hangi olaylar kayıtlı?
 
-gibi sorular sorabilir.
-
-İşte bu nedenle siber güvenlik öğrenirken bilgisayarın temel çalışma mantığını bilmek çok önemlidir.
-
----
-
-# 🧠 Kendini Test Et
-
-Aşağıdaki soruları cevaplamaya çalış.
-
-## Soru 1
-
-Aşağıdakilerden hangisi donanımdır?
-
-**A)** Windows  
-**B)** Google Chrome  
-**C)** RAM  
-**D)** Python
+Bu soruları anlayabilmek için önce bilgisayarın nasıl çalıştığını anlamamız gerekir.
 
 ---
 
-## Soru 2
+# 13. Bir Güvenlik Analisti Gibi Düşün
 
-Çalışan programların ihtiyaç duyduğu verilerin geçici olarak tutulduğu bellek hangisidir?
+Siber güvenlik yalnızca araç veya komut kullanmayı öğrenmek değildir.
 
-**A)** RAM  
-**B)** SSD  
-**C)** HDD  
-**D)** USB
+Önemli becerilerden biri, gözlemlediğimiz verilerden doğru sonuç çıkarabilmektir.
 
----
+Örneğin bilgisayarda:
 
-## Soru 3
+```text
+suspicious.exe
+```
 
-CPU'nun temel görevini en iyi açıklayan seçenek hangisidir?
+isimli bir dosya bulduğunu düşün.
 
-**A)** Dosyaları uzun süre saklamak  
-**B)** Komutları işlemek  
-**C)** İnternete bağlanmak  
-**D)** Dosyaları klasörlere ayırmak
+Şunu söyleyebilir misin?
 
----
+> "Bu program kesinlikle çalıştırılmış."
 
-## Soru 4
+Hayır.
 
-Aşağıdakilerden hangisi bir işletim sistemidir?
+Dosyanın depolamada bulunması tek başına çalıştırıldığını kanıtlamaz.
 
-**A)** RAM  
-**B)** SSD  
-**C)** Linux  
-**D)** CPU
+Bunun için başka kanıtları araştırmamız gerekebilir.
 
----
+Örneğin ilerleyen derslerde:
 
-## Soru 5
+- Process bilgileri
+- Log kayıtları
+- Dosya sistemi izleri
+- Bellek verileri
+- Ağ kayıtları
 
-Google Chrome çalıştırıldığında aşağıdakilerden hangisi gerçekleşebilir?
+gibi farklı veri kaynaklarının olayları anlamamıza nasıl yardımcı olduğunu göreceğiz.
 
-**A)** Gerekli veriler RAM'e yüklenebilir.  
-**B)** CPU tamamen devre dışı kalır.  
-**C)** RAM fiziksel olarak kapanır.  
-**D)** SSD bilgisayardan çıkarılır.
+> **Siber güvenlikte bir bulgu ile o bulgudan çıkardığımız sonuç aynı şey değildir.**
+
+Bu düşünme biçimini eğitim boyunca kullanacağız.
 
 ---
 
 # 🧪 Uygulama — Kendi Bilgisayarını Tanı
 
-Şimdi teoriyi bırakıp kendi bilgisayarımızı inceleyeceğiz.
+Şimdi öğrendiğimiz kavramları kendi bilgisayarımız üzerinde gözlemleyeceğiz.
 
-Bu, AG Cyber Lab içerisindeki ilk uygulamalarımızdan biri.
+Bu uygulamanın amacı komut ezberlemek değil, bilgisayarında gerçekten neler olduğunu gözlemlemektir.
 
 ---
 
@@ -584,112 +745,376 @@ CTRL + SHIFT + ESC
 
 tuşlarına bas.
 
-**Görev Yöneticisi** açılacaktır.
+Görev Yöneticisi açılacaktır.
+
+Gerekirse:
+
+**Daha fazla ayrıntı**
+
+seçeneğine tıkla.
 
 ---
 
-## Görev 2 — CPU ve RAM Bilgilerini Bul
+## Görev 2 — Donanım Bilgilerini Bul
 
-Görev Yöneticisi'nde:
+Görev Yöneticisi içerisinde:
 
-**Performans**
+```text
+Performans
+```
 
 sekmesine gir.
 
-Burada:
-
-- CPU
-- Bellek
-- Disk
-
-bilgilerini incele.
-
----
-
-## Görev 3 — Bilgilerini Not Et
-
-Aşağıdaki tabloyu doldur:
+Aşağıdaki bilgileri bulmaya çalış:
 
 | Bileşen | Bilgin |
 |---|---|
-| CPU | |
-| CPU Çekirdekleri | |
-| RAM | |
-| Disk | |
+| CPU modeli | |
+| CPU çekirdek sayısı | |
+| RAM kapasitesi | |
+| Depolama türü | SSD / HDD / Diğer |
+| Depolama kapasitesi | |
+
+Bu değerlerin ne anlama geldiğini henüz tamamen bilmiyorsan sorun değil.
+
+İlerleyen derslerde bunları tek tek öğreneceğiz.
 
 ---
 
-## Görev 4 — Çalışan Programları İncele
+## Görev 3 — RAM Kullanımını Gözlemle
 
-Görev Yöneticisi'nde:
+Görev Yöneticisi açıkken mevcut RAM kullanımını gözlemle.
 
-**İşlemler**
+Yaklaşık değeri not et:
+
+```text
+Chrome açılmadan önce RAM kullanımı:
+
+____________________________
+```
+
+Şimdi Google Chrome'u aç.
+
+Birkaç internet sitesi veya sekme aç.
+
+RAM kullanımını tekrar gözlemle.
+
+```text
+Chrome açıldıktan sonra RAM kullanımı:
+
+____________________________
+```
+
+Şimdi Chrome'u kapat ve bir süre bekle.
+
+RAM kullanımını yeniden gözlemle.
+
+```text
+Chrome kapatıldıktan sonra RAM kullanımı:
+
+____________________________
+```
+
+> Değerlerin tam olarak eski seviyesine dönmesi gerekmez. İşletim sistemi bellek yönetimini dinamik olarak gerçekleştirir.
+
+### Düşün
+
+Şu soruyu kendi cümlelerinle cevapla:
+
+> Chrome'u açtığında RAM kullanımında neden değişiklik gözlemledin?
+
+```text
+Cevabım:
+
+____________________________________________________
+
+____________________________________________________
+```
+
+---
+
+## Görev 4 — Process'leri Gözlemle
+
+Görev Yöneticisi içerisinde:
+
+```text
+İşlemler
+```
 
 sekmesine geç.
 
-Bilgisayarında çalışan programlara bak.
+Chrome çalışıyorsa Chrome ile ilişkili işlemleri bulmaya çalış.
 
-En fazla RAM kullanan 3 uygulamayı bul.
+Şunları gözlemle:
 
-| Uygulama | RAM Kullanımı |
-|---|---|
-| 1. | |
-| 2. | |
-| 3. | |
+- Kaç Chrome process'i görüyorsun?
+- Ne kadar RAM kullanıyorlar?
+- CPU kullanımları değişiyor mu?
+
+Sonuçlarını yaz:
+
+```text
+Gördüğüm Chrome process sayısı:
+
+____________________________
+
+
+Gözlemim:
+
+____________________________________________________
+
+____________________________________________________
+```
+
+> Bir uygulamanın neden birden fazla process kullanabildiğini şu anda bilmen gerekmiyor. Önemli olan bunu kendi sisteminde gözlemlemiş olman.
 
 ---
 
-# 🎯 Görev
+# 🧪 Mini Deney — RAM ve Depolama Arasındaki Fark
 
-Şimdi öğrendiklerini kendi cümlelerinle açıklamaya çalış.
+Bir metin editörü aç.
 
-Aşağıdaki soruya cevap ver:
+Örneğin Windows'ta Not Defteri'ni kullanabilirsin.
 
-> **Google Chrome'u açtığımda bilgisayarımda temel olarak neler gerçekleşiyor?**
+Şunu yaz:
 
-En az 4 aşama yaz.
+```text
+AG Cyber Lab - İlk Deney
+```
+
+Dosyayı:
+
+```text
+ilk-deney.txt
+```
+
+adıyla kaydet.
+
+Programı kapat.
+
+Dosyanın hâlâ bilgisayarında bulunduğunu doğrula.
+
+Şimdi düşün:
+
+> Programı kapattığımız halde dosya neden kaybolmadı?
+
+Çünkü dosyayı kalıcı depolamaya kaydettik.
+
+Bu deney bize RAM ile depolama arasındaki temel farklardan birini gösterir.
+
+---
+
+# 🧠 Kendini Test Et
+
+Soruları yalnızca ezberlediğin tanımlara göre değil, öğrendiğin çalışma mantığına göre cevaplamaya çalış.
+
+---
+
+## Soru 1
+
+Aşağıdakilerden hangisi donanımdır?
+
+**A)** Windows  
+**B)** Google Chrome  
+**C)** RAM  
+**D)** Ubuntu
+
+---
+
+## Soru 2
+
+Çalışan programların ihtiyaç duyduğu kod ve veriler için kullanılan ana çalışma belleği hangisidir?
+
+**A)** RAM  
+**B)** SSD  
+**C)** HDD  
+**D)** USB bellek
+
+---
+
+## Soru 3
+
+CPU'nun temel görevini en iyi açıklayan seçenek hangisidir?
+
+**A)** Dosyaları uzun süre saklamak  
+**B)** Programların makine komutlarını yürütmek  
+**C)** Yalnızca internete bağlanmak  
+**D)** Dosyaları klasörlere ayırmak
+
+---
+
+## Soru 4
+
+Aşağıdakilerden hangisi işletim sistemine örnektir?
+
+**A)** RAM  
+**B)** SSD  
+**C)** Ubuntu  
+**D)** CPU
+
+---
+
+## Soru 5
+
+Bilgisayarında `example.exe` isimli bir program dosyası buldun.
+
+Bundan hangisini kesin olarak söyleyebilirsin?
+
+**A)** Program kesinlikle çalıştırılmıştır.  
+**B)** Program kesinlikle zararlıdır.  
+**C)** Dosyanın sistemde bulunması tek başına çalıştırıldığını kanıtlamaz.  
+**D)** Program RAM'de kesinlikle bulunmaktadır.
+
+---
+
+## Soru 6
+
+Bir kullanıcı belge üzerinde çalışmaktadır ancak değişikliklerini henüz dosyaya kaydetmemiştir.
+
+Bilgisayar aniden güç kaybederse kaydedilmemiş değişikliklerin kaybolabilmesinin temel nedeni aşağıdakilerden hangisidir?
+
+**A)** RAM'in geçici çalışma belleği olması  
+**B)** CPU'nun depolama yapamaması  
+**C)** SSD'nin hiçbir veri saklayamaması  
+**D)** Monitörün kapanması
+
+---
+
+## Soru 7
+
+Bilgisayarında 16 GB RAM ve 1 TB SSD bulunmaktadır.
+
+Çok sayıda uygulamayı aynı anda açtığında hangi kaynağın kullanımının belirgin şekilde artmasını beklersin?
+
+**A)** RAM  
+**B)** Monitör çözünürlüğü  
+**C)** Klavye kapasitesi  
+**D)** BIOS boyutu
+
+---
+
+## Soru 8 — Analist Sorusu
+
+Bir güvenlik analisti şüpheli bir program dosyasını bilgisayarın depolama alanında buldu.
+
+Analist:
+
+> "Bu dosya kesinlikle çalıştırılmış."
+
+sonucuna vardı.
+
+Bu sonuç neden hatalı olabilir?
+
+Cevabını kendi cümlelerinle yaz:
+
+```text
+____________________________________________________
+
+____________________________________________________
+```
+
+---
+
+# 🎯 Ana Görev
+
+Şimdi dersin başındaki temel soruya geri dön.
+
+> **Google Chrome'u açtığımda bilgisayarımda temel olarak neler gerçekleşir?**
+
+En az 5 aşama kullanarak kendi cümlelerinle açıkla.
 
 ```text
 1.
+
 2.
+
 3.
+
 4.
+
+5.
 ```
 
 Cevabı internetten kopyalamak yerine kendi anlayışınla yaz.
 
----
+Şu kavramlardan yararlanabilirsin:
 
-# 🔗 Siber Güvenlik Bağlantısı
-
-Bu derste öğrendiğin:
-
-- CPU
-- RAM
-- Disk
-- İşletim sistemi
-- Program
-- Donanım
-- Yazılım
-
-kavramları ilerleyen derslerde tekrar karşına çıkacak.
-
-Özellikle:
-
-- Malware Analysis
-- Blue Team
-- Incident Response
-- DFIR
-
-alanlarında bu bilgileri kullanacağız.
+```text
+Depolama
+İşletim sistemi
+Process
+RAM
+CPU
+```
 
 ---
 
 # 💡 Hint System
 
-Görevi yaparken zorlanırsan aşağıdaki ipucunu kullanabilirsin.
+Görevi yapmakta zorlanırsan aşağıdaki ipuçlarını sırayla kullan.
 
-> **İpucu:** Chrome'u açtığında programın dosyalarının nerede saklandığını, çalışırken hangi belleği kullandığını ve komutların hangi donanım tarafından işlendiğini düşün.
+### İpucu 1
+
+Chrome çalışmıyorken program dosyalarının nerede bulunduğunu düşün.
+
+### İpucu 2
+
+Programı başlatma isteğini hangi temel sistem yazılımının yönettiğini düşün.
+
+### İpucu 3
+
+Çalışan program için hangi kavramı öğrendiğimizi hatırla:
+
+```text
+P _ O _ E _ S
+```
+
+### İpucu 4
+
+Program çalışırken ihtiyaç duyulan kod ve verilerin hangi çalışma belleğinde bulunabileceğini düşün.
+
+### İpucu 5
+
+Programın makine komutlarını hangi donanım bileşeninin yürüttüğünü düşün.
+
+---
+
+# 🔐 Siber Güvenlik Bağlantısı
+
+Bu derste öğrendiğimiz kavramlar yalnızca bilgisayar bilgisi değildir.
+
+İleride birçok siber güvenlik alanının temelini oluşturacaklar.
+
+```text
+CPU
+RAM
+Depolama
+Process
+İşletim Sistemi
+        │
+        ├──► Malware Analysis
+        ├──► Digital Forensics (DFIR)
+        ├──► Incident Response
+        ├──► Blue Team
+        ├──► Endpoint Security
+        └──► Reverse Engineering
+```
+
+Örneğin ileride:
+
+- Bellekte çalışan zararlı kodları,
+- Şüpheli process'leri,
+- Disk üzerindeki dosya izlerini,
+- İşletim sistemi loglarını,
+- Programların oluşturduğu ağ bağlantılarını
+
+inceleyebiliriz.
+
+Ancak bunları anlayabilmek için önce sistemin normalde nasıl çalıştığını bilmemiz gerekir.
+
+> **Bir sistemde neyin anormal olduğunu anlayabilmek için önce normal davranışın nasıl göründüğünü bilmeliyiz.**
+
+Bu düşünce siber güvenlik eğitimin boyunca tekrar karşına çıkacak.
 
 ---
 
@@ -697,25 +1122,84 @@ Görevi yaparken zorlanırsan aşağıdaki ipucunu kullanabilirsin.
 
 Bu dersi tamamlamadan önce aşağıdakileri kontrol et:
 
-- [ ] Bilgisayarın ne olduğunu öğrendim.
-- [ ] Donanım ve yazılım arasındaki farkı öğrendim.
-- [ ] CPU'nun temel görevini öğrendim.
-- [ ] RAM'in ne olduğunu öğrendim.
-- [ ] Diskin ne olduğunu öğrendim.
-- [ ] İşletim sisteminin görevini öğrendim.
+- [ ] Bilgisayarın temel olarak ne olduğunu açıklayabiliyorum.
+- [ ] Input, processing, output ve storage kavramlarını biliyorum.
+- [ ] Donanım ve yazılım arasındaki farkı açıklayabiliyorum.
+- [ ] CPU'nun temel görevini biliyorum.
+- [ ] RAM'in temel görevini biliyorum.
+- [ ] RAM ile depolama arasındaki farkı açıklayabiliyorum.
+- [ ] SSD ve HDD'nin depolama teknolojileri olduğunu biliyorum.
+- [ ] İşletim sisteminin temel rolünü açıklayabiliyorum.
+- [ ] Program ile process arasındaki temel farkı biliyorum.
 - [ ] Kendi bilgisayarımın CPU bilgisini buldum.
-- [ ] Kendi RAM bilgilerimi buldum.
-- [ ] Kendi disk bilgilerimi buldum.
-- [ ] En fazla RAM kullanan 3 uygulamayı buldum.
-- [ ] Chrome örneğini kendi cümlelerimle açıklayabildim.
+- [ ] Kendi bilgisayarımın RAM bilgisini buldum.
+- [ ] Depolama bilgilerimi kontrol ettim.
+- [ ] Çalışan process'leri gözlemledim.
+- [ ] Chrome açıldığında RAM kullanımındaki değişimi gözlemledim.
 - [ ] Quiz sorularını cevapladım.
+- [ ] Chrome'un açılma sürecini kendi cümlelerimle açıklayabiliyorum.
+
+---
+
+# 🧩 Dersin Özeti
+
+Bu dersten aklında özellikle şu modelin kalması yeterlidir:
+
+```text
+                  BİLGİSAYAR
+                      │
+             ┌────────┴────────┐
+             ▼                 ▼
+          DONANIM            YAZILIM
+             │                 │
+       ┌─────┼─────┐           ▼
+       ▼     ▼     ▼      İşletim Sistemi
+      CPU   RAM  Depolama       │
+                         ┌──────┴──────┐
+                         ▼             ▼
+                    Uygulamalar    Sistem
+                                   Hizmetleri
+```
+
+Ve bir program çalıştırıldığında temel olarak:
+
+```text
+Program
+   │
+   ▼
+İşletim Sistemi
+   │
+   ▼
+Process
+   │
+   ├────► RAM
+   │
+   ├────► CPU
+   │
+   └────► İşletim Sistemi Hizmetleri
+```
+
+arasındaki ilişkiyi düşün.
+
+Bu modeli ilerleyen her derste biraz daha geliştireceğiz.
 
 ---
 
 # 🚀 Sonraki Ders
 
-**Ders 02 — CPU: İşlemci Nasıl Çalışır?**
+## Ders 02 — CPU, RAM ve Depolama: Bilgisayar Veriyi Nasıl İşler?
 
-Bir sonraki derste CPU'nun bilgisayardaki görevini daha ayrıntılı şekilde inceleyeceğiz.
+Bir sonraki derste bilgisayarın üç temel bileşenini daha yakından inceleyeceğiz:
 
-Komutların nasıl işlendiğini, çekirdek kavramını ve CPU'nun siber güvenlik açısından neden önemli olduğunu öğreneceğiz.
+- CPU nasıl komut yürütür?
+- CPU çekirdeği nedir?
+- Thread nedir?
+- CPU cache neden vardır?
+- RAM neden gereklidir?
+- RAM dolarsa ne olur?
+- SSD ile HDD arasındaki fark nedir?
+- CPU, RAM ve depolama birbirleriyle nasıl iletişim kurar?
+
+Ve en önemlisi:
+
+> **Bu bileşenler siber güvenlik ve dijital adli bilişim sırasında bize hangi kanıtları sağlayabilir?**
