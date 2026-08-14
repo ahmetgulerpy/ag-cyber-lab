@@ -1,0 +1,53 @@
+AG Cyber Lab — Licensing Notice
+
+Copyright (c) 2026 Ahmet Güler
+
+This repository contains both software source code and educational content.
+Different parts of the project are licensed under different terms.
+
+1. SOFTWARE
+
+Unless otherwise stated, the software source code contained in the following
+directory is licensed under the MIT License:
+
+    /app
+
+The full license text is available in:
+
+    LICENSES/MIT.txt
+
+
+2. EDUCATIONAL CONTENT
+
+Unless otherwise stated, the educational and training content contained in
+the following directories is licensed under the Creative Commons
+Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0):
+
+    /modules
+    /labs
+
+This includes, where applicable:
+
+- lesson texts
+- exercises
+- lab questions and instructional content
+- quizzes
+- assessments
+- training scenarios
+
+The full license text is available in:
+
+    LICENSES/CC-BY-NC-4.0.txt
+
+License information:
+https://creativecommons.org/licenses/by-nc/4.0/
+
+
+3. TRADEMARKS AND BRANDING
+
+The licenses above do not grant permission to use the AG Cyber Lab name,
+logos, visual identity, or other project branding to imply endorsement,
+affiliation, or an official version of the project.
+
+Third-party trademarks and names remain the property of their respective
+owners.
